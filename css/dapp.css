@@ -1,0 +1,28 @@
+.center {
+	height: 10px;
+	width: 80%;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+th{
+	font-size:20px;
+	text-align: center;
+}
+
+td{
+	font-size: 15px;
+	text-align: center;
+}
+
+#qrResult{
+	visibility: hidden;
+}
+
+img{
+	height: 100px;
+	width: 100px;
+
+}
+
+table tr.row5 {display : none;}
