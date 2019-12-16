@@ -94,103 +94,8 @@
   }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
-
-            // if (typeof web3 !== 'undefined') {
-            //   web3 = new Web3(web3.currentProvider);
-            // } else {
-            //   web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
-            // }
-            
-            acc='0xD422104E6310367aBE12456FC6017513601E5732';
-            var contractAbi =[
-          {
-              "inputs": [],
-              "payable": false,
-              "stateMutability": "nonpayable",
-              "type": "constructor"
-          },
-          {
-              "constant": false,
-              "inputs": [
-                  {
-                      "internalType": "string",
-                      "name": "_name",
-                      "type": "string"
-                  },
-                  {
-                      "internalType": "uint256",
-                      "name": "_rollno",
-                      "type": "uint256"
-                  }
-              ],
-              "name": "createStudentPublic",
-              "outputs": [],
-              "payable": false,
-              "stateMutability": "nonpayable",
-              "type": "function"
-          },
-          {
-              "constant": true,
-              "inputs": [],
-              "name": "display",
-              "outputs": [
-                  {
-                      "internalType": "uint256",
-                      "name": "",
-                      "type": "uint256"
-                  }
-              ],
-              "payable": false,
-              "stateMutability": "view",
-              "type": "function"
-          },
-          {
-              "constant": true,
-              "inputs": [],
-              "name": "studentName",
-              "outputs": [
-                  {
-                      "internalType": "string",
-                      "name": "",
-                      "type": "string"
-                  }
-              ],
-              "payable": false,
-              "stateMutability": "view",
-              "type": "function"
-          },
-          {
-              "constant": true,
-              "inputs": [
-                  {
-                      "internalType": "uint256",
-                      "name": "",
-                      "type": "uint256"
-                  }
-              ],
-              "name": "students",
-              "outputs": [
-                  {
-                      "internalType": "string",
-                      "name": "name",
-                      "type": "string"
-                  },
-                  {
-                      "internalType": "uint256",
-                      "name": "rollno",
-                      "type": "uint256"
-                  },
-                  {
-                      "internalType": "uint256",
-                      "name": "hash",
-                      "type": "uint256"
-                  }
-              ],
-              "payable": false,
-              "stateMutability": "view",
-              "type": "function"
-          }
-      ];      // Set Contract Address
+            acc='';//account address
+            var contractAbi =;      // Set Contract Address
             var contractAddress = '0xb9A4A640334ad214A4dBd6ef2577A2264F8704B5'; 
             var contract = web3.eth.contract(contractAbi).at(contractAddress);
             console.log(contract);
@@ -205,7 +110,7 @@
                 }
             av=a.value;
             bv=parseFloat(b.value);
-            contract.createStudentPublic(av,bv,{ from: '0xD422104E6310367aBE12456FC6017513601E5732'},(err, res) => {});
+            contract.createStudentPublic(av,bv,{ from: acc},(err, res) => {});
         }
             arr=[];
             srcs = [ ];
