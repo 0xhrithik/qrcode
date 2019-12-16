@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> D A P P </title>
+    <meta name="viewport" content="width=device-width">
+
+    <!-- <link rel="stylesheet" href="customqrstyle.css"> -->
+    <!-- <link rel="stylesheet" href="css/myform.css"> -->
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/dapp.css">
+
+    <script src="js/qrcode.js"></script>
+    <script src="js/jquery.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+</head>
+
+<body>
+
+        <div class="container" style="width: 650px;">
+                <div class="row">
+                  <div class="col-lg-12 text-center" >
+                    <h1 > D A P P </h1>
+                    <hr/>
+                    <br/>
+                    <div id="content">
+                      <h4 id="candidateName"></h4>
+                      <h4 aria-valuetext="" id="display"></h4>
+                      <form role="form">
+                        <div class="form-group" style="display:inline;">
+                          <div class="input-group">
+                            <input id="input1" required class="form-control input-lg" name="candidateName" placeholder="name" >
+                            </input>
+                            <span class="input-group-btn">
+                            </span>
+                            <input id="input2" required class="form-control input-lg" name="candidateName" placeholder="rollno" >
+                            </input>
+                            <span class="input-group-btn">
+                              <button onclick="gets();return false;" type="button" class="btn btn-primary btn-lg" id="btn1">test</button>
+                              <!-- <button type="submit"  class="btn btn-primary btn-lg">Add</button> -->
+                            </span>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+    <div class="center" id="qrResult"></div>
+
+
+
+<div class="col-lg-12 text-center" >
+    <h1> D A T A </h1><br>
+    <table id="table1" class="table ">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">rollno</th>
+          <th scope="col">hash</th>
+          <th scope="col">qrcode</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+
+
+
+    <script type="text/javascript">
+    
+    if (typeof web3 !== 'undefined') {
+    console.log('web3 is enabled');
+    web3 = new Web3(web3.currentProvider);
+    if (web3.currentProvider.isMetaMask === true) {
+      console.log('MetaMask is active');
+    } else {
+      document.write('MetaMask is not available');
+      web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
+    }
+  } else {
+    document.write('web3 not found');
+  }
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+            // if (typeof web3 !== 'undefined') {
+            //   web3 = new Web3(web3.currentProvider);
+            // } else {
+            //   web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
+            // }
+            
+            acc='0xD422104E6310367aBE12456FC6017513601E5732';
+            var contractAbi =[
+          {
+              "inputs": [],
+              "payable": false,
+              "stateMutability": "nonpayable",
+              "type": "constructor"
+          },
+          {
+              "constant": false,
+              "inputs": [
+                  {
+                      "internalType": "string",
+                      "name": "_name",
+                      "type": "string"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "_rollno",
+                      "type": "uint256"
+                  }
+              ],
+              "name": "createStudentPublic",
+              "outputs": [],
+              "payable": false,
+              "stateMutability": "nonpayable",
+              "type": "function"
+          },
+          {
+              "constant": true,
+              "inputs": [],
+              "name": "display",
+              "outputs": [
+                  {
+                      "internalType": "uint256",
+                      "name": "",
+                      "type": "uint256"
+                  }
+              ],
+              "payable": false,
+              "stateMutability": "view",
+              "type": "function"
+          },
+          {
+              "constant": true,
+              "inputs": [],
+              "name": "studentName",
+              "outputs": [
+                  {
+                      "internalType": "string",
+                      "name": "",
+                      "type": "string"
+                  }
+              ],
+              "payable": false,
+              "stateMutability": "view",
+              "type": "function"
+          },
+          {
+              "constant": true,
+              "inputs": [
+                  {
+                      "internalType": "uint256",
+                      "name": "",
+                      "type": "uint256"
+                  }
+              ],
+              "name": "students",
+              "outputs": [
+                  {
+                      "internalType": "string",
+                      "name": "name",
+                      "type": "string"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "rollno",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "hash",
+                      "type": "uint256"
+                  }
+              ],
+              "payable": false,
+              "stateMutability": "view",
+              "type": "function"
+          }
+      ];      // Set Contract Address
+            var contractAddress = '0xb9A4A640334ad214A4dBd6ef2577A2264F8704B5'; 
+            var contract = web3.eth.contract(contractAbi).at(contractAddress);
+            console.log(contract);
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+            function gets(){
+                a=document.getElementById('input1');
+                b=document.getElementById('input2');
+                if(!a.value.trim() || !b.value.trim() ){
+                    alert('input a text');
+                    a.focus();
+                    return;
+                }
+            av=a.value;
+            bv=parseFloat(b.value);
+            contract.createStudentPublic(av,bv,{ from: '0xD422104E6310367aBE12456FC6017513601E5732'},(err, res) => {});
+        }
+            arr=[];
+            srcs = [ ];
+
+            var qrcode=new QRCode(document.getElementById('qrResult'),{
+            width:200,
+            height:200,
+            colorDark : "black",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+            for (var i = 0; i <=17; i++) {
+                (function (i){    
+                contract.students(i, function(err, result) {
+                resultstring = JSON.stringify(result);
+                arr.push(resultstring);             
+                qrcode.makeCode(arr[i]);
+
+                $.each($('#qrResult').find("img"), function() {
+                srcs.push($(this).attr("src"));
+                });
+                
+                console.log(srcs[i]);
+                sc=srcs[i];
+                $('tbody').delay(1000).append("<tr><td>" + (i+=1) + "</td><td>" + result[0] + "</td><td>" + result[1] + "</td><td>" + result[2] + "</td><td><img alt='qrcode'"+i+" src="+sc+">"  + "</img></td></tr>" );
+                });
+            }).call(this,i);
+        };
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+    </script>
+</body>
+</html>
